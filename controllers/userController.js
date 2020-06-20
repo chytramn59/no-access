@@ -1,13 +1,13 @@
-const User = require("../models/userModel");
+const {User} = require("../models");
 
 // POST METHOD
-exports.userCreate = (req, res) => {
+exports.create = (req, res) => {
   return User.create({
     userName: req.body.userName,
     name: req.body.name,
-  }).then((users) => {
-    if (users) {
-      res.send({ id: users.id }); //only id will be sent in json format
+  }).then((user) => {
+    if (user) {
+      res.send({ id: user.id }); //only id will be sent in json format
     } else {
       res.status(400).send("Error in insert new record");
     }
@@ -15,7 +15,7 @@ exports.userCreate = (req, res) => {
 };
 
 // GET by ID METHOD
-exports.getAll = (req, res) => {
+exports.getById = (req, res) => {
   var id = req.body.id;
   return User.findAll({ where: { id: id } }, { query: { raw: true } }).then(
     (users) => {
